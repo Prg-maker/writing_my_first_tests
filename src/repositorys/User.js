@@ -24,15 +24,23 @@ class UserRepository {
 
   async create(nome, idade){
     
-    const createUser  =  this.users.push({
-      id: this._id,
-      nome,
-      idade
-    })
+
+    try{
+
+      const createUser  =  this.users.push({
+        id: this._id,
+        nome,
+        idade
+      })
+  
+  
+      return true
 
 
-
-    return this.users
+    }catch(err){
+      return 'user not createa'
+    }
+  
 
   }
 
@@ -45,6 +53,20 @@ class UserRepository {
     }catch(err){
       return console.log('Erro: user not exist', err)
     }
+
+  }
+
+  async delete(id){
+
+    
+    const [response] =  this.users.filter(item => item.id === id)
+    
+    const newArrayUser = this.users.splice( 1 , response.id )
+
+    console.log(newArrayUser , "new array")
+    console.log(this.users , "usersc")
+
+    return response
 
   }
   

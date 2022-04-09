@@ -5,20 +5,11 @@ const User = require('../User')
 
 
 describe('testing users' , () => {
-  it('list user for id ' , async() => {
-    
-    const user =  {
-      id: '15ddb3f0-fcd5-4703-8aa2-ed5580eee7d0',
-      nome: 'daniel',
-      idade: 18
-    }
-
-    const [response] = await User.listar(user.id)
-
-    expect(response).toEqual(user)
-  })
+ 
 
   it('create user' , async ()=> {
+
+    
     const user_fake =  {
       id: '15ddb3f0-fcd5-4703-8aa2-ed5580eee7d0',
       nome: 'daniel',
@@ -33,12 +24,33 @@ describe('testing users' , () => {
 
     const response = await User.create(nome , idade)
 
-    const [response_user_listar] = await User.listar(user_fake.id)
+
+    expect(response).toBeTruthy()
+
+  })
+
+  it('list user of id ' , async() => {
+    
+    const user =  {
+      id: '15ddb3f0-fcd5-4703-8aa2-ed5580eee7d0',
+      nome: 'daniel',
+      idade: 18
+    }
+
+    const [response] = await User.listar(user.id)
+
+    expect(response).toEqual(user)
+  })
+
+  it('delete user of id', async ()=> {
+
+     
+    const user =  {
+      id: '15ddb3f0-fcd5-4703-8aa2-ed5580eee7d0',
+    }
 
 
-
-    expect(response[1]).toEqual(response_user_listar)
-
+    const response = await User.delete(user.id)
 
   })
 })
