@@ -1,41 +1,34 @@
 const crypto = require('crypto')
+const prismaClient  = require('../prisma')
+
 
 class UserRepository {
 
-
-  constructor(id){
-    this.users = [
-      {
-        id:"1",
-        nome: "daniel",
-        idade: 18
-      },
-      {
-        id: '15ddb3f0-fcd5-4703-8aa2-ed5580eee7d0',
-        nome: 'daniel',
-        idade: 18
-      }
-    ],
-
-    this._id = id ?? crypto.randomUUID()
-  }
-  
-
-
-  async create(nome, idade){
-    
+  async create(id , nome, idade ){
 
     try{
 
-      const createUser  =  this.users.push({
-        id: this._id,
-        nome,
-        idade
+      const userAlreadyExist = await prismaClient.user.findFirst({
+        where:{
+          id
+        }
       })
-  
-  
-      return true
 
+      if(!userAlreadyExist){
+
+        const createUser =  await prismaClient.user.create({
+          data:{
+            id:this.id,
+            nome,
+            idade
+          }
+        })
+
+        return createUser
+
+      }
+
+      return 'user exist'
 
     }catch(err){
       return 'user not createa'
@@ -43,31 +36,39 @@ class UserRepository {
   
 
   }
-
-
   async listar(id){
-    try{
-      const response =  this.users.filter(item => item.id === id)
 
-      return response
-    }catch(err){
-      return console.log('Erro: user not exist', err)
+    const response = await prismaClient.user.findFirst({
+      where:{
+        id
+      }
+    })
+
+    if(!response){
+      return 'user not exist'
     }
+
+
+
+    return response
 
   }
 
   async delete(id){
 
-    
-    const [response] =  this.users.filter(item => item.id === id)
-    
-    const newArrayUser = this.users.splice( 1 , response.id )
+    const response = await prismaClient.user.delete({
+      where:{
+        id
+      }
+    })
 
-    console.log(newArrayUser , "new array")
-    console.log(this.users , "usersc")
+    if(!response){
+      return 'user not exist'
+    }
+
 
     return response
-
+  
   }
   
 }
