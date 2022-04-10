@@ -18,7 +18,7 @@ class UserRepository {
 
         const createUser =  await prismaClient.user.create({
           data:{
-            id:this.id,
+            id,
             nome,
             idade
           }

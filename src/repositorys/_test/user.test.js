@@ -1,3 +1,4 @@
+const prismaClient = require('../../prisma')
 const User = require('../User')
 
 
@@ -42,15 +43,17 @@ describe('testing users' , () => {
 
   it('delete user of id', async ()=> {
 
-     
-    const user =  {
-      id: '1',
-    }
+    const userArray = await prismaClient.user.findMany()
+
+    const  [userId] = userArray.map(user =>{
+      return user.id
+    } )
 
 
-    const response = await User.delete(user.id)
+    
 
-    console.log(response , 'delete')
+    const response = await User.delete(userId)
+
     expect(response).toBeTruthy()
 
   })
