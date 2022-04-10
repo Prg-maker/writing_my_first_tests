@@ -8,7 +8,9 @@ class UserService{
   
   constructor(id){
     this._id = id ?? crypto.randomUUID()
-  }
+  } 
+  
+
 
   async create( nome , idade ){
 
@@ -19,13 +21,15 @@ class UserService{
 
   }
 
+
   async listar(id){
     const user = await User.listar(id)
-    console.log(user)
 
+    return user
 
   }
   
+
 }
 
 module.exports = new UserService()

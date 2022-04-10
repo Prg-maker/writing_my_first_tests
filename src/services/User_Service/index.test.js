@@ -22,9 +22,19 @@ describe('testing index.js ==  testing User  ' , () => {
 
   })
 
- /* it('list users ' , async ()=> {
-    const response = User_Service
-  })*/
+  it('list users ' , async ()=> {
+
+
+    const response = await User_Service.listar('e21617e6-14e1-4d7b-8bb6-e1e8cf7f6613')
+
+    const user = await prismaClient.user.findFirst({
+      where:{
+        id: 'e21617e6-14e1-4d7b-8bb6-e1e8cf7f6613'
+      }
+    })
+
+    expect(response).toEqual(user)
+  })
 
 
 
