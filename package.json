@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "jest --no-chache",
+    "test:coverage": "jest --coverage",
+    "dev": "nodemon src/app.js"
+  },
   "devDependencies": {
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15"
   },
   "dependencies": {
     "@prisma/client": "^3.12.0",
+    "express": "^4.17.3",
     "prisma": "^3.12.0"
-  },
-  "scripts": {
-    "test": "jest --no-chache"
   }
 }

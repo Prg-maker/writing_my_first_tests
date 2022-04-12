@@ -5,12 +5,12 @@ const index = require('./index')
 describe('testing index.js ==  testing User  ' , () => {
 
   it('testing create user', async  ()=> {
-    const create = await User_Service.create( 'daniel' , 67)
+    const create = await User_Service.create( 'daniel' , 68)
 
     const user = await prismaClient.user.findFirst({
       where:{
         nome: 'daniel',
-        idade: 67
+        idade: 68
       }
     })
 
@@ -22,23 +22,41 @@ describe('testing index.js ==  testing User  ' , () => {
 
   })
 
-  it('list users ' , async ()=> {
+  it('list user ' , async ()=> {
+    const id = '82e3de0d-e14e-4857-9cd6-a65a2225843c'
 
-
-    const response = await User_Service.listar('e21617e6-14e1-4d7b-8bb6-e1e8cf7f6613')
+    const response = await User_Service.listar(id)
 
     const user = await prismaClient.user.findFirst({
       where:{
-        id: 'e21617e6-14e1-4d7b-8bb6-e1e8cf7f6613'
+        id
       }
     })
 
     expect(response).toEqual(user)
   })
 
+  
+
+
+ it('delete user' , async ()=> {
+    const id = '0238ccfc-b51a-46ce-91d8-485a5ca15161'
+
+
+    const user = await prismaClient.user.findFirst({
+      where: {
+        id
+      }
+    })
 
 
 
+    const response = await User_Service.delete(id)
+    expect(response).toEqual(user)
+
+    
+
+  })
 
 
 } )

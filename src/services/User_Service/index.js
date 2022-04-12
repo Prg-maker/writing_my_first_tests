@@ -6,16 +6,14 @@ class UserService{
 
 
   
-  constructor(id){
-    this._id = id ?? crypto.randomUUID()
-  } 
+
   
 
 
   async create( nome , idade ){
 
-
-    const user = await User.create(this._id , nome , idade)
+    const _id  = crypto.randomUUID()
+    const user = await User.create( _id , nome , idade)
 
     return user
 
@@ -27,6 +25,12 @@ class UserService{
 
     return user
 
+  }
+
+  async delete(id){
+    const user = await User.delete(id)
+
+    return user
   }
   
 
