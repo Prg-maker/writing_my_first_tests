@@ -23,7 +23,7 @@ describe('testing index.js ==  testing User  ' , () => {
   })
 
   it('list user ' , async ()=> {
-    const id = '82e3de0d-e14e-4857-9cd6-a65a2225843c'
+    const id = 'f024041b-36b3-4669-b4b8-4f57dac7851e'
 
     const response = await User_Service.listar(id)
 
@@ -40,7 +40,7 @@ describe('testing index.js ==  testing User  ' , () => {
 
 
  it('delete user' , async ()=> {
-    const id = '0238ccfc-b51a-46ce-91d8-485a5ca15161'
+    const id = '1071774e-0813-4824-bdf3-85c375701895'
 
 
     const user = await prismaClient.user.findFirst({
@@ -49,13 +49,15 @@ describe('testing index.js ==  testing User  ' , () => {
       }
     })
 
+    console.log(user)
 
 
     const response = await User_Service.delete(id)
+    console.log(response)
+
     expect(response).toEqual(user)
 
     
-
   })
 
 
